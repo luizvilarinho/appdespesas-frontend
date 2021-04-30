@@ -1,0 +1,329 @@
+:root{
+    --aquashadow:#4d8c77;
+    --aqualight:  rgb(172, 255, 227);
+    --red:#d23636;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    outline: 0;
+}
+html, body{
+    max-width: 100vw;
+}
+main{
+    background-color: rgb(221, 248, 239);
+    min-height: 100vh;
+    min-width: 100vw;
+    max-width: 100vw;
+}
+.nav{
+    width: 100%;
+    height: auto;
+    background-color: var(--aquashadow);
+}
+.nav ul{
+    display:flex;
+    text-align: right;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding-right:40px ;
+}
+.nav li{
+    padding:10px;
+    color:aquamarine;
+}
+.material-icons{
+    vertical-align:middle;
+}
+.logout{
+    cursor:pointer;
+}
+header{
+    width: 100%;
+    height: 4.5rem;
+    background-color: aquamarine;
+    padding: 10px;
+    text-align: center;
+}
+header div.header-month{
+    width: 20%;
+    position: absolute;
+    left: 20%;
+    overflow: hidden;
+}
+@keyframes drop-dados{
+    from{
+        position:absolute;
+        top:100px;
+    }
+
+    to{
+        position: absolute;
+        top:200px;
+    }
+}
+#dados.drop{
+    animation-name:drop-dados;
+    animation-duration: 0.5s; 
+}
+
+.drop{
+    animation-name:dropmenu;
+    animation-duration: 0.5s;
+}
+header li.selected::after{
+    content:"▼";
+    float:right;
+    color: var(--aquashadow)
+ }
+header li{
+   display: none;
+   width: 100%;
+   height: auto;
+   background-color: var(--aqualight);
+   padding: 10px 20px 10px 20px;
+   color: var(--aquashadow);
+   cursor:pointer;
+}
+
+header li:hover{
+    background-color: rgb(190 253 232);
+ }
+ header li:active{
+    background-color: var(--aqualight);
+ }
+header ul.show-months li{
+    display: block;
+    position: relative;
+    z-index: 10;
+    opacity: 1;
+    
+}
+@keyframes dropmenu{
+    from{
+        height:10%;
+
+    }
+
+    to{
+        height: 100%;
+    }
+}
+header ul.show-months li.selected{
+    border-bottom: 1px dotted var(--aquashadow);
+}
+header li.selected{
+    display: block;
+ }
+ header h4{
+     color: var(--aquashadow);
+ }
+ header span{
+    color: var(--aquashadow);;
+}
+
+ header div.container__receita{
+    position: absolute;
+    left: 55%;
+ }
+ #dados-totais{
+     margin: 20px 0;
+ }
+ #dados-totais article{
+    display: flex;
+    justify-content: space-around;
+ }
+ #dados-totais .item{
+    color:var(--aquashadow);
+ }
+ #dados-totais h4{
+    color:#4d8c77;
+ }
+ #dados{
+    display: flex;
+    justify-content: space-around;
+    
+ }
+ #dados article{
+     background-color: aquamarine;
+     text-align: center;
+     color: var(--aquashadow);
+     padding: 1rem;
+     display: flex;
+    flex-wrap: wrap;
+}
+#dados h3{
+    border-bottom: 1px solid var(--aquashadow);
+    padding-bottom: 0.5rem;
+    align-self: end;
+}
+#dados input{
+    padding: 3px;
+    background-color:var(--aqualight);
+    border:0;
+    color:var(--aquashadow)
+}
+#dados button{
+    background-color:var(--aquashadow);
+    color: var(--aqualight);
+    border:0;
+    padding: 0px 4px 0px 4px;
+    cursor: pointer;
+}
+#dados button:active{
+    background-color:var(--aqualight);
+    color:var(--aquashadow)
+}
+#dados h4{
+    text-align: left;
+}
+#dados .e-card__item{
+    display: flex;
+}
+#dados .e-card__item div{
+    align-self: center;
+}
+#dados .e-card__item input[type='radio']{
+    align-self: center;
+}
+#dados #entradas{
+    background-color: rgb(127, 225, 255);
+}
+#dados #consolidado{
+    min-width: 20%;
+    width: auto;
+    background-color: unset;
+    color: var(--aquashadow)
+}
+#dados .card-footer{
+    width: 100%;
+    height: auto;
+    padding: 0.3rem;
+    border-top: 1px dotted var(--aquashadow);
+    display: flex;
+    align-self: flex-end;
+}
+.edit, .delete{
+    cursor: pointer;
+}
+.edit:hover, .delete:hover{
+    opacity: 0.8;
+}
+.edit:active, .delete:active{
+    opacity: 1;
+    color: black;
+}
+.e-cards-item__container{
+    width: 100%;
+}
+input[type='radio']:after {
+    width: 8px;
+    height: 8px;
+    border-radius: 15px;
+    top: -2px;
+    left: 2px;
+    position: relative;
+    
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    /* border: 1px solid white; */
+}
+input[type='radio']:checked:after {
+    width: 5px;
+    height: 5px;
+    border-radius: 15px;
+    top: -2px;
+    left:2px;
+    position: relative;
+    background-color: var(--aquashadow);
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+.add__item{
+    display: flex;
+}
+
+.e-card__item-consolidado{
+    margin-bottom: 1rem;
+    display: flex;
+    text-align: left;
+}
+#dados h4.e-card__consilidado-title{
+    text-align: left;
+    color:var(--aquashadow)
+}
+footer{
+    width: 100%;
+    height: 50px;
+    background-color: var(--aquashadow);
+    position: relative;
+    bottom: 100%;
+    z-index: 1;
+}
+.m1{
+    width: 100%;
+}
+.m4{
+    width: 25%;
+}
+.m2{
+    width: 50%;
+}
+.m3{
+    width: 33%;
+}
+.m5{
+    width: 20%;
+}
+.m6{
+    width: 16.6%;
+}
+.m3, .m4, .m2, .m1, .m5, .m6{
+    margin: 5px;
+}
+
+@media(max-width:500px){
+    header{
+        display:flex;
+    }
+    header div.header-month{
+        position: unset;
+        width: 50%;
+        left: 0;
+        max-width: 180px;
+        overflow: visible;
+    }
+    header div.container__receita{
+        position: unset;
+    }
+    #dados-totais article{
+        flex-wrap: wrap;
+        margin:0 auto;
+    }
+    #dados-totais .item{
+        margin: 15px 0;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    #dados-totais h4{
+       
+        font-size: 0.8rem;
+    }
+    #dados{
+        flex-wrap: wrap;
+        margin: 0 auto;
+        min-width: fit-content;
+    }
+    .s1{
+        width: 100%;
+    }
+    .s2{
+        width: 50%;
+    }
+}
