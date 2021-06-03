@@ -21,7 +21,8 @@ var getCookies = function(){
 
 var logout=function(){
   localStorage.removeItem("ecoAccessToken");
-  location.assign(config[environment].loginPage);
+  //alert("redirect", '/eco-login.html')
+  location.assign('/eco-login.html', '_self');
 }
 
 var controller = {
@@ -302,7 +303,7 @@ window.onload = async function(){
     el.addEventListener("click", async function(month){
       var mes = el.innerText;
       var mesId = el.attributes["data-id"].value;
-      var ano = parseInt(s('.header-yaer li.selected').textContent);
+      var ano = parseInt(s('.header-year li.selected').textContent);
       s(".show-months .selected").innerText = mes;
       s(".show-months").classList.remove("show-months");
       controller.showMonth = false;

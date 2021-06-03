@@ -1,20 +1,3 @@
-var environment = "prod";
-
-var config = {
-  dev:{
-    loginPage:"eco-login.html",
-    page:"index.html",
-    url:"http://localhost:2500/api/eco/v1/login/user/login",
-    creatUserURL: "http://localhost:2500/api/eco/v1/login/user/create"
-  },
-  prod:{
-    loginPage:"https://www.luizvilarinho.com.br/economia/eco-login.html",
-    page:"https://www.luizvilarinho.com.br/economia",
-    url:"https://economia-webserver.herokuapp.com/api/eco/v1/login/user/login",
-    creatUserURL:"https://economia-webserver.herokuapp.com/api/eco/v1/login/user/create"
-  }
-}
-
 function s(seletor){
     return document.querySelector(seletor);
 }
@@ -93,8 +76,8 @@ async function cadastrarUsuario(){
         email,
         password
     }
-    console.log("bodyObject", bodyObject)
-    var responseData = await fetch(config[environment].creatUserURL, {
+    //console.log("bodyObject", bodyObject)
+    var responseData = await fetch(`${config.baseUrl}/api/eco/v1/login/user/create`, {
         method:'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -105,8 +88,9 @@ async function cadastrarUsuario(){
     var data = await responseData.json();
 
     if(data.success == true){
-        console.log("loginpage", config[environment].loginPage)
-        location.assign(config[environment].loginPage, "_self");
+        //console.log("loginpage", 'eco-login.html')
+        location.assign('/eco-login.html', "_self");
+        //alert("redirect", '/eco-login.html')
     }else{
         showAlert(data.message);
     }
@@ -126,8 +110,9 @@ async function login(){
         password:senha
     }
     //console.log("bodyObject", bodyObject)
+    //console.log(`${config.baseUrl}/api/eco/v1/login/user/login`)
 
-    var responseData = await fetch(config[environment].url, {
+    var responseData = await fetch(`${config.baseUrl}/api/eco/v1/login/user/login`, {
         method:'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -137,12 +122,12 @@ async function login(){
 
     var data = await responseData.json();
 
-    if(!data.success){
+    if(!data.success || data.findUser == false || data.correctPassword == false){
         showAlert(data.message)
         return 
     }
 
     localStorage.setItem("ecoAccessToken", data.token);
     
-    location.assign(config[environment].page, "_self");
+    window.open('/index.html', "_self");
 }

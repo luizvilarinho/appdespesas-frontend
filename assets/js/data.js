@@ -1,7 +1,7 @@
 var data = {}
 
-const url = config[environment].baseUrlEco;
-const urlGetUser = config[environment].getUser;
+const url = `${config.baseUrl}/api/eco/v1/data`;
+const urlGetUser = `${config.baseUrl}/api/eco/v1/login/users/getlogueduser`;
 
 async function getUser(){
     var token = localStorage.getItem('ecoAccessToken');
@@ -17,6 +17,9 @@ async function getUser(){
     data = await responseData.json();
     
     console.log("USER", data)
+    if(data.redirect){
+        location.assign(data.redirect, '_self');
+    }
     s("#userName").innerText = data.userName;
 }
 
@@ -36,9 +39,9 @@ async function getData(mes, ano){
 
     data = await responseData.json();
 
-    if(data.redirect){
-        //alert("REDIRECT")
-        location.assign(data.redirect, "_self");
+    if("redirect", data.redirect){
+        alert("REDIRECT")
+        //location.assign(data.redirect, "_self");
     }
     
     console.log("DATA", data);
@@ -114,40 +117,3 @@ async function editItem(objectItem, mes){
 
     getData(mes,ano);
 }
-
-/*var data = {
-    despesasFixas:[
-        {
-            nome:"Aluguel",
-            valor:"10",
-            mes:"1",
-            id:5
-         },
-         {
-            nome:"gasolina",
-            valor:"15",
-            mes:"1",
-            id:parseInt(Math.random() * 1000)
-         }
-        
-    ],
-    despesasVariaveis:[
-        {
-            nome:"Mercado",
-            valor:"590",
-            mes:"1",
-            id:parseInt(Math.random() * 1000)
-         }
-    ],
-    entradas:[
-        {
-            nome:"Salário",
-            valor:"5000",
-            mes:"2",
-            id:parseInt(Math.random() * 1000)
-         }
-    ],
-      
-    
-}
-*/
