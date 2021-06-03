@@ -252,7 +252,7 @@ async function renderListaAnos(lista){
     s('.header-year ul').innerHTML += template
   }
   
-  s('.header-year ul li').classList.add('selected');
+  document.querySelectorAll('.header-year ul li')[0].classList.add('selected');
 
   var liAnos = new Array(...document.querySelectorAll('.header-year ul li'))
   liAnos.map((el)=>{

@@ -40,8 +40,8 @@ async function getData(mes, ano){
     data = await responseData.json();
 
     if("redirect", data.redirect){
-        alert("REDIRECT")
-        //location.assign(data.redirect, "_self");
+        //alert("REDIRECT")
+        location.assign(data.redirect, "_self");
     }
     
     console.log("DATA", data);
