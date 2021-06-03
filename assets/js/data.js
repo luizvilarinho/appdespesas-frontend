@@ -20,10 +20,13 @@ async function getUser(){
     s("#userName").innerText = data.userName;
 }
 
-async function getData(){
+async function getData(mes, ano){
     var token = localStorage.getItem('ecoAccessToken');
     //alert("TOKEN", token);
-    var responseData = await fetch(url, {
+    //var mesAtualId = new Date().getMonth() + parseInt(1);
+    var recurso = `?mes=${mes}&ano=${ano}`;
+
+    var responseData = await fetch(url + recurso, {
         method:'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -38,12 +41,31 @@ async function getData(){
         location.assign(data.redirect, "_self");
     }
     
-    controller.render();
+    console.log("DATA", data);
+    controller.render(mes);
 }
 
-async function addItem(bodyObject){
-    console.log("BODY", bodyObject);
+async function getyears(){
     var token = localStorage.getItem('ecoAccessToken');
+
+    var responseData = await fetch(url + '/dominio/ano', {
+        method:'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token
+          }
+    });
+
+    var anos = await responseData.json();
+    
+    console.log("anos", anos);
+    return anos
+}
+
+async function addItem(bodyObject, mes){
+    //console.log("BODY", bodyObject);
+    var token = localStorage.getItem('ecoAccessToken');
+    var ano = parseInt(s('.header-year li.selected').textContent)
     var responseData = await fetch(url, {
         method:'POST',
         headers: {
@@ -54,13 +76,14 @@ async function addItem(bodyObject){
     });
 
     data = await responseData.json();
-    getData();
+    getData(mes, ano);
 }
 
 
-async function deleteData(id){
+async function deleteData(id, mes){
     let urlDelete =  `${url}/${id}`;
     var token = localStorage.getItem('ecoAccessToken');
+    var ano = parseInt(s('.header-year li.selected').textContent)
 
     var resp =  await fetch(urlDelete, {
         method:'DELETE',
@@ -72,12 +95,13 @@ async function deleteData(id){
     
     respJson = await resp.json();
 
-    getData();
+    getData(mes, ano);
 }
 
-async function editItem(objectItem){
+async function editItem(objectItem, mes){
     let urlPut =  `${url}/${objectItem.id}`;
     var token = localStorage.getItem('ecoAccessToken');
+    var ano = parseInt(s('.header-year li.selected').textContent)
 
     var responseData = await fetch(urlPut, {
         method:'POST',
@@ -88,7 +112,7 @@ async function editItem(objectItem){
         body:JSON.stringify(objectItem)
     });
 
-    getData();
+    getData(mes,ano);
 }
 
 /*var data = {

@@ -1,6 +1,6 @@
 
 //frontend
-var environment = "dev";
+var environment = "prod";
 
 var config = {
   dev:{
@@ -9,7 +9,7 @@ var config = {
     getUser: "http://localhost:2500/api/eco/v1/login/users/getlogueduser"
   },
   prod:{
-    loginPage:"https://www.luizvilarinho.com.br/login",
+    loginPage:"https://www.luizvilarinho.com.br/economia/eco-login.html",
     baseUrlEco:"https://economia-webserver.herokuapp.com/api/eco/v1/data",
     getUser: "https://economia-webserver.herokuapp.com/api/eco/v1/login/users/getlogueduser"
   }

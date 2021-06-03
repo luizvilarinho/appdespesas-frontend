@@ -26,13 +26,14 @@ var logout=function(){
 
 var controller = {
   showMonth:false,
+  showYear:false,
   itemSelected:function(){
     var itemId= "";
     var blocoId = "";
     document.querySelectorAll("input[type='radio']").forEach((el)=>{
       if(el.checked){
         itemId = el.value;
-        blocoId = el.parentElement.parentElement.parentElement.id
+        blocoId = el.parentElement.parentElement.parentElement.parentElement.id
       }
     });
     
@@ -53,9 +54,10 @@ var controller = {
     return template;
   },
   card_footer:function(cardSelector){
+    let id = "#" + s(cardSelector).parentElement.parentElement.attributes.id.value;
     let template = `<div class="card-footer">
-        <div class="edit m2 s2" onclick="controller.edit('${cardSelector}')">editar</div>
-        <div class="delete m2 s2" onclick="controller.delete('${cardSelector}')">apagar</div>
+        <div class="edit m2 s2" onclick="controller.edit('${id}')">editar</div>
+        <div class="delete m2 s2" onclick="controller.delete('${id}')">apagar</div>
         </div>`;
 
         return template;
@@ -122,12 +124,13 @@ var controller = {
       nome:s(idBloco + " input")[0].value,
       valor:s(idBloco + " input")[1].value,
       mes:controller.mes_id,
+      ano: parseInt(s(".header-year .selected").textContent)
    };
 
     s(idBloco + " input")[0].value = "";
     s(idBloco + " input")[1].value = "";
 
-    await addItem(despesa)
+    await addItem(despesa, controller.mes_id)
     
   },
   edit: function(cardSelector){
@@ -144,7 +147,7 @@ var controller = {
               s(`#${bloco} input`)[0].value = item.nome;
               s(`#${bloco} input`)[1].value = item.valor;
     
-              deleteData(itemId)
+              deleteData(itemId, controller.mes_id)
             }
           })
         }
@@ -157,25 +160,28 @@ var controller = {
     var isCorrectEntrie = document.querySelector(`${cardSelector} input[type='radio'][value='${itemId}']`).checked
     
     if(isCorrectEntrie){
-      await deleteData(itemId);
+      await deleteData(itemId, controller.mes_id);
     }
   
   },
-  render:function(){
+  render:async function(mes){
     
-    s("#dados").classList.add('drop');
-    
-    setTimeout(function(){
-      s("#dados").classList.remove('drop');
-    }, 1000)
+    console.log(mes != controller.mes_id)
+    if(mes != controller.mes_id){
+      s("#dados").classList.add('drop');
+      
+      setTimeout(function(){
+        s("#dados").classList.remove('drop');
+      }, 1000)
+    }
 
-    s("#despesas-fixas .e-cards-item__container").innerHTML = "";
-    s("#despesas-variaveis .e-cards-item__container").innerHTML = "";
-    s("#entradas .e-cards-item__container").innerHTML = "";
+    s("#despesas-fixas .card-content").innerHTML = "";
+    s("#despesas-variaveis .card-content").innerHTML = "";
+    s("#entradas .card-content").innerHTML = "";
 
-    render(data.despesasFixas,"#despesas-fixas .e-cards-item__container");
-    render(data.despesasVariaveis,"#despesas-variaveis .e-cards-item__container");
-    render(data.entradas,"#entradas .e-cards-item__container");
+    render(data.despesasFixas,"#despesas-fixas .card-content");
+    render(data.despesasVariaveis,"#despesas-variaveis .card-content");
+    render(data.entradas,"#entradas .card-content");
 
   }
   
@@ -185,12 +191,18 @@ var controller = {
 function toggleMonth(showMonth){
   controller.showMonth = !showMonth;
 
-  controller.showMonth ? s("header ul").classList.add("show-months") : s("header ul").classList.remove("show-months");
+  controller.showMonth ? s("header div.header-month ul").classList.add("show-months") : s("header div.header-month ul").classList.remove("show-months");
   controller.showMonth ? s(".header-month").classList.add("drop") : s(".header-month").classList.remove("drop")
 }
 
+function toggleYear(showYear){
+  controller.showYear = !showYear;
+
+  controller.showYear ? s("header div.header-year ul").classList.add("show-years") : s("header div.header-year ul").classList.remove("show-years");
+  controller.showYear ? s(".header-year").classList.add("drop") : s(".header-year").classList.remove("drop")
+}
+
 function render(obj, selector){
-  gravarDados(data);
 
   if(obj == undefined){
     return false;
@@ -203,8 +215,12 @@ function render(obj, selector){
       s(selector).innerHTML += controller.templateItem(el.nome, el.valor,el.id);
     })
 
-    console.log("SELECTPR", selector)
-    s(selector).innerHTML += controller.card_footer(selector);
+    //console.log("SELECTPR", s(selector).parentElement.children[1])
+    //s(selector).parentElement.innerHTML += controller.card_footer(selector);
+    if(!s(selector).parentElement.children[1]){
+      s(selector).parentElement.innerHTML += controller.card_footer(selector);
+    }
+    
    
     var valor = controller.somarValores();
 
@@ -215,22 +231,62 @@ function render(obj, selector){
     s('#receitaMes').innerText = parseFloat(valor.resultado).toLocaleString('pt-br', {style:'currency', currency:'BRL' })
 }
 
-s(".selected").addEventListener("click", function(){
+s(".header-month .selected").addEventListener("click", function(){
   toggleMonth(controller.showMonth);
 });
 
-function gravarDados(data){
-  void(0);
-}
+async function renderListaAnos(lista){
+  
+  var anoAtual = new Date().getFullYear();
 
+  if(!lista.includes(anoAtual) || lista.length == 0){
+    lista.push(anoAtual)
+    lista.sort((a,b)=>{
+      return b-a;
+    })
+  }
+
+  for(var i = 0; i< lista.length; i++){
+    var template = `<li class="" data-id="${lista[i]}">${lista[i]}</li>`;
+    s('.header-year ul').innerHTML += template
+  }
+  
+  s('.header-year ul li').classList.add('selected');
+
+  var liAnos = new Array(...document.querySelectorAll('.header-year ul li'))
+  liAnos.map((el)=>{
+    el.addEventListener('click', async function(){
+      var anoSelecionado = parseInt(this.innerText);
+      console.log(anoSelecionado)
+      //controller.showYear = true;
+      toggleYear(controller.showYear);
+
+      if(this.classList.value == 'selected'){
+        return false;
+      }
+      
+      s('.header-year li.selected').classList.remove('selected')
+      this.classList.add('selected');
+      //s('#dados').classList.add('drop');
+      await getData(controller.mes_id, anoSelecionado);
+      controller.render();
+     
+    })
+  })
+}
 
 window.onload = async function(){
   
   getUser();
   
-  await getData();
+  var mesAtualId = new Date().getMonth() + parseInt(1);
+  var anoAtual = new Date().getFullYear();
+  await getData(mesAtualId, anoAtual);
 
   var months = s(".header-month li")
+  var listaAnos = await getyears();
+
+  renderListaAnos(listaAnos);
 
   //open the current month
   s(".header-month li.selected").innerText = s(".header-month li")[controller.mes_id].innerText;
@@ -243,13 +299,20 @@ window.onload = async function(){
     }
 
     //put event on months li
-    el.addEventListener("click", function(month){
+    el.addEventListener("click", async function(month){
       var mes = el.innerText;
       var mesId = el.attributes["data-id"].value;
+      var ano = parseInt(s('.header-yaer li.selected').textContent);
       s(".show-months .selected").innerText = mes;
       s(".show-months").classList.remove("show-months");
       controller.showMonth = false;
+
+      if(controller.mes_id == mesId){
+        return false;
+      }
+
       controller.mes_id = mesId;
+      await getData(controller.mes_id, ano);
       controller.render();
     })
   })

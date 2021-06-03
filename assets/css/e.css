@@ -12,6 +12,7 @@
 }
 html, body{
     max-width: 100vw;
+    overflow-y: hidden;
 }
 main{
     background-color: rgb(221, 248, 239);
@@ -48,11 +49,17 @@ header{
     padding: 10px;
     text-align: center;
 }
-header div.header-month{
+header div.header-month, header div.header-year{
+    overflow: hidden;
     width: 20%;
     position: absolute;
     left: 20%;
-    overflow: hidden;
+   
+}
+header div.header-year{
+    width: 7%;
+    left: 10%;
+  
 }
 @keyframes drop-dados{
     from{
@@ -74,7 +81,7 @@ header div.header-month{
     animation-name:dropmenu;
     animation-duration: 0.5s;
 }
-header li.selected::after{
+header .header-month li.selected::after, header .header-year li.selected::after{
     content:"▼";
     float:right;
     color: var(--aquashadow)
@@ -89,19 +96,23 @@ header li{
    cursor:pointer;
 }
 
+header .header-year li{
+    padding: 10px 10px 10px 10px;
+ }
+
 header li:hover{
     background-color: rgb(190 253 232);
  }
  header li:active{
     background-color: var(--aqualight);
  }
-header ul.show-months li{
+header ul.show-months li, header ul.show-years li{
     display: block;
     position: relative;
     z-index: 10;
     opacity: 1;
-    
 }
+
 @keyframes dropmenu{
     from{
         height:10%;
@@ -112,7 +123,7 @@ header ul.show-months li{
         height: 100%;
     }
 }
-header ul.show-months li.selected{
+header ul.show-months li.selected, header ul.show-years li.selected{
     border-bottom: 1px dotted var(--aquashadow);
 }
 header li.selected{
@@ -153,7 +164,8 @@ header li.selected{
      color: var(--aquashadow);
      padding: 1rem;
      display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
 }
 #dados h3{
     border-bottom: 1px solid var(--aquashadow);
@@ -206,6 +218,9 @@ header li.selected{
     display: flex;
     align-self: flex-end;
 }
+.card-content{
+    /* min-height: 80%; */
+}
 .edit, .delete{
     cursor: pointer;
 }
@@ -218,6 +233,10 @@ header li.selected{
 }
 .e-cards-item__container{
     width: 100%;
+    flex-grow:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 input[type='radio']:after {
     width: 8px;
@@ -289,10 +308,13 @@ footer{
 }
 
 @media(max-width:500px){
+    html, body{
+        overflow-y: unset;
+    }
     header{
         display:flex;
     }
-    header div.header-month{
+    header div.header-month, header div.header-year{
         position: unset;
         width: 50%;
         left: 0;

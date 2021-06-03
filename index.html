@@ -22,6 +22,11 @@
             </ul>
         </div>
         <header>
+            <div class="header-year">
+                <ul class="">
+                    <!-- <li class="selected" data-id="2021">2021</li> -->
+                </ul>
+            </div>
             <div class="header-month">
                 <ul class="s1">
                     <li class="selected" data-id="1">Janeiro</li>
@@ -70,18 +75,22 @@
             </article>
         </section>
 
-        <section id="dados" class="drop">
+        <section id="dados" class="">
             <article id="despesas-fixas" class="m4 s1 e-card">
-                <h3 class="e-card__tittle m1">Despesas Fixas</h3>
-                    <div class="add__container">
-                        <h4 class="m1">Adicionar despesa</h4>
-                        <div class="add__item m1">
-                            <input autocomplete="off" class="m2" value="" placeholder="despesa" />
-                            <input autocomplete="off" class="m3" value="" placeholder="valor" />
-                            <button class="m6" onclick="controller.addItem('#despesas-fixas', 'despesasFixas')">add</button>
+                <div class="card-header">
+                    <h3 class="e-card__tittle m1">Despesas Fixas</h3>
+                        <div class="add__container">
+                            <h4 class="m1">Adicionar despesa</h4>
+                            <div class="add__item m1">
+                                <input autocomplete="off" class="m2" value="" placeholder="despesa" />
+                                <input autocomplete="off" class="m3" value="" placeholder="valor" />
+                                <button class="m6" onclick="controller.addItem('#despesas-fixas', 'despesasFixas')">add</button>
+                            </div>
                         </div>
+                </div>
+                    <div class="e-cards-item__container">
+                        <div class="card-content"></div>
                     </div>
-                    <div class="e-cards-item__container"></div>
                     <!-- <div class="e-card__item m1">
                         <input type="radio" name="despesaFixaRadio" value="" />
                        <div class="m2">Aluguel</div> 
@@ -101,16 +110,20 @@
             </article>
 
             <article id="despesas-variaveis" class="m4 s1 e-card">
-                <h3 class="e-card__tittle m1">Despesas Variáveis</h3>
-                    <div class="add__container">
-                        <h4 class="m1">Adicionar despesa</h4>
-                        <div class="add__item m1">
-                            <input autocomplete="off" class="m2" name="" value="" placeholder="despesa" />
-                            <input autocomplete="off" class="m3" name="" value="" placeholder="valor" />
-                            <button class="m6" onclick="controller.addItem('#despesas-variaveis', 'despesasVariaveis')">add</button>
+                <div class="card-header">
+                    <h3 class="e-card__tittle m1">Despesas Variáveis</h3>
+                        <div class="add__container">
+                            <h4 class="m1">Adicionar despesa</h4>
+                            <div class="add__item m1">
+                                <input autocomplete="off" class="m2" name="" value="" placeholder="despesa" />
+                                <input autocomplete="off" class="m3" name="" value="" placeholder="valor" />
+                                <button class="m6" onclick="controller.addItem('#despesas-variaveis', 'despesasVariaveis')">add</button>
+                            </div>
                         </div>
+                </div>
+                    <div class="e-cards-item__container">
+                        <div class="card-content"></div>
                     </div>
-                    <div class="e-cards-item__container"></div>
                 <!--<div class="e-card__item m1">
                     <input type="radio" name="despesaVariaveisRadio" value="" />
                    <div class="m2">Aluguel</div> 
@@ -138,16 +151,20 @@
             </article>
 
             <article id="entradas" class="m4 s1 e-card">
-                <h3 class="e-card__tittle m1">entradas</h3>
-                    <div class="add__container">
-                        <h4 class="m1">Adicionar entrada</h4>
-                        <div class="add__item">
-                            <input autocomplete="off" class="m2" name="" value="" placeholder="entrada" />
-                            <input autocomplete="off" class="m3" name="" value="" placeholder="valor" />
-                            <button class="m6" onclick="controller.addItem('#entradas', 'entradas')">add</button>
+                <div class="card-header">
+                    <h3 class="e-card__tittle m1">entradas</h3>
+                        <div class="add__container">
+                            <h4 class="m1">Adicionar entrada</h4>
+                            <div class="add__item">
+                                <input autocomplete="off" class="m2" name="" value="" placeholder="entrada" />
+                                <input autocomplete="off" class="m3" name="" value="" placeholder="valor" />
+                                <button class="m6" onclick="controller.addItem('#entradas', 'entradas')">add</button>
+                            </div>
                         </div>
+                </div>
+                    <div class="e-cards-item__container">
+                        <div class="card-content"></div>
                     </div>
-                    <div class="e-cards-item__container"></div>
                 <!-- <div class="e-card__item m1">
                     <input type="radio" name="entradasRadio" value="" />
                    <div class="m2">Salário 1</div> 

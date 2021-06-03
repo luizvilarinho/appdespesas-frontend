@@ -1,4 +1,4 @@
-var environment = "dev";
+var environment = "prod";
 
 var config = {
   dev:{
@@ -8,7 +8,7 @@ var config = {
     creatUserURL: "http://localhost:2500/api/eco/v1/login/user/create"
   },
   prod:{
-    loginPage:"https://www.luizvilarinho.com.br/eco-login",
+    loginPage:"https://www.luizvilarinho.com.br/economia/eco-login.html",
     page:"https://www.luizvilarinho.com.br/economia",
     url:"https://economia-webserver.herokuapp.com/api/eco/v1/login/user/login",
     creatUserURL:"https://economia-webserver.herokuapp.com/api/eco/v1/login/user/create"
@@ -105,6 +105,7 @@ async function cadastrarUsuario(){
     var data = await responseData.json();
 
     if(data.success == true){
+        console.log("loginpage", config[environment].loginPage)
         location.assign(config[environment].loginPage, "_self");
     }else{
         showAlert(data.message);
@@ -124,7 +125,7 @@ async function login(){
         email,
         password:senha
     }
-    console.log("bodyObject", bodyObject)
+    //console.log("bodyObject", bodyObject)
 
     var responseData = await fetch(config[environment].url, {
         method:'POST',
@@ -136,7 +137,12 @@ async function login(){
 
     var data = await responseData.json();
 
+    if(!data.success){
+        showAlert(data.message)
+        return 
+    }
+
     localStorage.setItem("ecoAccessToken", data.token);
-    console.log("data", data);
+    
     location.assign(config[environment].page, "_self");
 }
