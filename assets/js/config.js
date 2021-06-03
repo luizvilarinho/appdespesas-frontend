@@ -4,7 +4,7 @@ var environment = "prod";
 
 var config = {
   dev:{
-    loginPage:"eco-login.html",
+    loginPage:"eco-login.html ",
     baseUrlEco: "http://localhost:2500/api/eco/v1/data",
     getUser: "http://localhost:2500/api/eco/v1/login/users/getlogueduser"
   },
