@@ -129,5 +129,5 @@ async function login(){
 
     localStorage.setItem("ecoAccessToken", data.token);
     
-    window.open('/index.html', "_self");
+    window.open('./index.html', "_self");
 }

@@ -69,40 +69,18 @@ var controller = {
     var totalEntradas = 0;
 
     if(data.despesasFixas.length > 0){
-      totalDespesasFixas = data.despesasFixas.filter((el)=>el.mes == controller.mes_id)
-      
-      if(totalDespesasFixas.length == 0){
-        totalDespesasFixas = 0;
-      }
-      if(totalDespesasFixas.length > 0){
-        totalDespesasFixas = totalDespesasFixas.map(el=> el.valor)
+      totalDespesasFixas = data.despesasFixas.map(el=> el.valor)
         .reduce((acc, val)=> parseFloat(acc) + parseFloat(val));
-      }
     }
 
     if(data.despesasVariaveis.length > 0){
-      totalDespesasVariaveis = data.despesasVariaveis.filter((el)=>el.mes == controller.mes_id)
-      
-      if(totalDespesasVariaveis.length == 0){
-          totalDespesasVariaveis = 0;
-      }
-      if(totalDespesasVariaveis.length > 0){
-        totalDespesasVariaveis = totalDespesasVariaveis.map(el=> el.valor)
+        totalDespesasVariaveis = data.despesasVariaveis.map(el=> el.valor)
         .reduce((acc, val)=> parseFloat(acc) + parseFloat(val));
-      }
     }
     
     if(data.entradas.length > 0){
-      totalEntradas = data.entradas.filter((el)=>el.mes == controller.mes_id);
-      
-      if(totalEntradas.length == 0){
-        totalEntradas = 0;
-      }
-
-      if(totalEntradas.length > 0){
-        totalEntradas = totalEntradas.map(el=> el.valor)
+      totalEntradas = data.entradas.map(el=> el.valor)
         .reduce((acc, val)=> parseFloat(acc) + parseFloat(val));
-      }
     }
     
     return {
@@ -180,6 +158,7 @@ var controller = {
     s("#despesas-variaveis .card-content").innerHTML = "";
     s("#entradas .card-content").innerHTML = "";
 
+    console.log("DATA2", data)
     render(data.despesasFixas,"#despesas-fixas .card-content");
     render(data.despesasVariaveis,"#despesas-variaveis .card-content");
     render(data.entradas,"#entradas .card-content");
@@ -204,23 +183,19 @@ function toggleYear(showYear){
 }
 
 function render(obj, selector){
-
+  console.log("OBJ", obj)
   if(obj == undefined){
     return false;
   }
-    obj.filter(el=>{
-        if(el.mes == controller.mes_id){
-          return el;
-        };
-    }).forEach(el=>{
-      s(selector).innerHTML += controller.templateItem(el.nome, el.valor,el.id);
-    })
 
-    //console.log("SELECTPR", s(selector).parentElement.children[1])
-    //s(selector).parentElement.innerHTML += controller.card_footer(selector);
-    if(!s(selector).parentElement.children[1]){
-      s(selector).parentElement.innerHTML += controller.card_footer(selector);
-    }
+  obj.forEach(el=>{
+    console.log("EL", el)
+    s(selector).innerHTML += controller.templateItem(el.nome, el.valor,el.id);
+  })
+    
+  if(!s(selector).parentElement.children[1]){
+    s(selector).parentElement.innerHTML += controller.card_footer(selector);
+  }
     
    
     var valor = controller.somarValores();

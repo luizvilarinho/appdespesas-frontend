@@ -17,10 +17,19 @@ async function getUser(){
     data = await responseData.json();
     
     console.log("USER", data)
+   
     if(data.redirect){
         location.assign(data.redirect, '_self');
+    }else{
+        s("main").removeAttribute("hidden");
+        s("#loading").setAttribute("hidden", true);
+        
+        s("#userName").innerText = data.userName;
     }
-    s("#userName").innerText = data.userName;
+
+    
+    
+    
 }
 
 async function getData(mes, ano){
