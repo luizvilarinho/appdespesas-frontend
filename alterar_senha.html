@@ -16,7 +16,8 @@
 <body>
 
 <main class="center">
-  <section id="alert-container">
+  <section id="alert-container" class="">
+    <!-- <img src="./assets/img/alert-success.png" width="100"/> -->
     <article>
       <div id="alert-message">Mensagem de alerta</div>
     </article>
@@ -33,27 +34,28 @@
     <section id="loginContainer" class="bg-gray">
       <article class="login-card relative-lg-top">
         <div class="login-card-header">
-          <h2>login</h2>
+          <h2>alteração de senha</h2>
         </div>
           <div class="login-inputs">
             <!--NOTE o input nome so aparece quando clicado em novo usuario-->
-            <input type="text" value="" name="nome" placeholder="digite seu nome" class="hidden" />
             <input type="text" id="email" value="" name="email" placeholder="digite seu email" />
-            <input type="password" id="senha" value="" name="senha" placeholder="digite sua senha" />
           </div>
-        <div class="btn-bubble-md">
-          <a href="javascript:;" onclick="login()">entrar</a>
+        <div class="btn-bubble-md" onclick="alterar()">
+          <a href="javascript:;">
+            enviar e-mail
+          </a>
+          <div class="btn-loading hidden">
+            <img src="./assets/img/loading.gif" />
+          </div>
+          
         </div>
-        <div class="linkEsqueceuASenha">
-          <a href="alterar_senha.html" class="inlneLink">Esqueceu a senha</a>
-        </div>
+        
       </article>
     </section>
 
 </main>
 
-<script src="assets/js/config.js"></script>
-<script src="assets/js/eco-login.js"></script>
+<script src="./assets/js/alterarsenha.js"></script>
 
 </body>
 </html>
